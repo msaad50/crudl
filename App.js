@@ -1,26 +1,44 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import ModuleNavigator from "./ModuleNavigator";
+import UsersNavigator from "./UserNavigator";
+import Icons from "./src/components/UI/Icons";
 
-export const App = () => {
+const Drawer = createDrawerNavigator();
+
+const App = () => {
   return (
-    // Initialisations ----------------
-    // State --------------------------
-    // Handlers -----------------------
-    // View ---------------------------
-    <View style={styles.container}>
-      <Text>Hello World!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Drawer.Navigator
+        screenOptions={{
+          drawerStyle: { backgroundColor: "gray" },
+          drawerActiveTintColor: "white",
+          headerStyle: { backgroundColor: "black" },
+          headerTintColor: "white",
+        }}
+      >
+        <Drawer.Screen
+          name="Modules CRUDLer"
+          component={ModuleNavigator}
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <Icons.Modules color={color} size={size} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Users CRUDLer"
+          component={UsersNavigator}
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <Icons.Users color={color} size={size} />
+            ),
+          }}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default App;
